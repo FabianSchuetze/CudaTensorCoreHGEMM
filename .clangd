@@ -1,0 +1,32 @@
+CompileFlags:
+    Add:
+        - --cuda-path=/usr/local/cuda
+        - -I/usr/local/lib/python3.10/dist-packages/torch/include/
+        - -I/usr/local/lib/python3.10/dist-packages/torch/include/torch/csrc/api/include/
+        - -I/usr/local/cuda/include/
+        - -L/usr/local/cuda/lib64/
+        - -I/workspace/matrix/include/
+        - -std=c++17
+        - [-Wall]
+    Compiler: nvcc
+
+Diagnostics:
+  # Tweak Clang-Tidy checks.
+  ClangTidy:
+    Add: [performance*, modernize*, readability*, bugprone*, cert*,
+          cppcoreguidelines*, concurrency*]
+    Remove: [modernize-use-trailing-return-type, readability-identifier-naming,
+             readability-identifier-length]
+    CheckOptions:
+      readability-identifier-naming.VariableCase: CamelCase
+  UnusedIncludes: Strict
+
+InlayHints:
+  Designators: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+  Enabled: Yes
+
+# Indexer settings
+Index:
+  Background: Skip
